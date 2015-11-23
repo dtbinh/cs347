@@ -1,0 +1,16 @@
+SMAP
+email_005fsuccess_jsp.java
+JSP
+*S JSP
+*F
++ 0 email_success.jsp
+email_success.jsp
++ 1 header.jsp
+header/header.jsp
+*L
+5,13:49
+1#1,38:62
+17#0,6:99
+23:105,3
+24,3:108
+*E
