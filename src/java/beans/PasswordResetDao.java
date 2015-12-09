@@ -85,7 +85,7 @@ public class PasswordResetDao {
         System.out.println("Adding token field to table...");
         String hash = hashPassword(token);
         boolean status = false;
-        Connection conn = null;
+        Connection db = null;
 //        HttpSession session = ServletActionContext.getRequest().getSession(false);
 //        session.setMaxInactiveInterval(20*60);
         try {
@@ -94,11 +94,14 @@ public class PasswordResetDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+            
+            db = beans.Database.getDatabaseConnection();
+
             String query = "UPDATE users SET token=?, tokenCreate=? WHERE email=?";
 
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, token);
             ps.setString(2, time);
             ps.setString(3, email);
@@ -106,9 +109,9 @@ public class PasswordResetDao {
 
         } catch (SQLException e) {
         } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -122,7 +125,7 @@ public class PasswordResetDao {
 
         System.out.println("Checking token information...");
         boolean status = false;
-        Connection conn = null;
+        Connection db = null;
 
         try {
             try {
@@ -130,10 +133,13 @@ public class PasswordResetDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+            
+            db = beans.Database.getDatabaseConnection();
+
             String query = "select token, tokenCreate from users where token=?";
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, token);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -147,10 +153,13 @@ public class PasswordResetDao {
                     now.setTime(df.parse(nowTime));
                     long diff = now.getTimeInMillis() - previous.getTimeInMillis();
                     if (diff >= 1 * 60 * 15000) {
-                        conn = DriverManager.getConnection(
-                                "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//                        conn = DriverManager.getConnection(
+//                                "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+                        
+                        db = beans.Database.getDatabaseConnection();
+
                         String del_query = "UPDATE users SET token=?, tokenCreate=? WHERE token=?";
-                        PreparedStatement nps = conn.prepareStatement(del_query);
+                        PreparedStatement nps = db.prepareStatement(del_query);
                         nps.setString(1, null);
                         nps.setString(2, null);
                         nps.setString(3, token);
@@ -158,7 +167,7 @@ public class PasswordResetDao {
                         System.out.println("The Token has expired. Deleting token...");
                     } else {
                         String updatePass = "UPDATE users SET password=? WHERE token=?";
-                        PreparedStatement nps2 = conn.prepareStatement(updatePass);
+                        PreparedStatement nps2 = db.prepareStatement(updatePass);
                         String hash = hashPassword(pass);
                         nps2.setString(1, hash);
                         nps2.setString(2, token);
@@ -172,9 +181,9 @@ public class PasswordResetDao {
             }
         } catch (SQLException e) {
         } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -200,18 +209,21 @@ public class PasswordResetDao {
     private void resetToken(String token) throws MalformedURLException, UnsupportedEncodingException {
         System.out.println("Resetting Token...");
         boolean status = false;
-        Connection conn = null;
+        Connection db = null;
         try {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+                        
+            db = beans.Database.getDatabaseConnection();
+            
             String delQuery = "UPDATE users SET token=?, tokenCreate=? WHERE token=?";
             
-            PreparedStatement ps = conn.prepareStatement(delQuery);
+            PreparedStatement ps = db.prepareStatement(delQuery);
             ps.setString(1, null);
             ps.setString(2, null);
             ps.setString(3, token);
@@ -220,9 +232,9 @@ public class PasswordResetDao {
 
         } catch (SQLException e) {
         } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
