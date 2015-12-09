@@ -21,7 +21,6 @@
     </head>
     <body>
         <%@include file="header/header.jsp" %> 
-
         <div class="container text-center" id="home-container">
             <h1 class="welcome-heading">Welcome To Tutors@JMU!</h1>
             <hr>
@@ -30,14 +29,10 @@
                     <img src="images/homeimage.jpg" class="img-responsive">
                 </div>
             </div>
-            
 <!--            <h2>This site is under construction.</h2>
             <br><br>
             <p>Please come back soon!</p>-->
         </div>
-        
-
         <%@include file="footer/footer.jsp" %> 
-
     </body>
 </html>

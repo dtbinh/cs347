@@ -25,7 +25,7 @@ public class RegisterDao {
         System.out.println("Checking register information...");
                 
         boolean status = false;
-        Connection conn = null;
+        Connection db = null; // Connection conn = null;
 
         try {
             try {
@@ -33,10 +33,13 @@ public class RegisterDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+                        
+            db = beans.Database.getDatabaseConnection();
+            
             String query = "select * from users where userID=?";
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -48,9 +51,9 @@ public class RegisterDao {
             }
         } catch (SQLException e) {
         } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -64,7 +67,7 @@ public class RegisterDao {
         System.out.println("Checking email information...");
                 
         boolean status = false;
-        Connection conn = null;
+        Connection db = null;
 
         try {
             try {
@@ -72,10 +75,13 @@ public class RegisterDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+            
+            db = beans.Database.getDatabaseConnection();
+            
             String query = "select * from users where email=?";
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -87,9 +93,9 @@ public class RegisterDao {
             }
         } catch (SQLException e) {
         } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -101,7 +107,7 @@ public class RegisterDao {
         public void insertData(String inputUserReg, String inputPasswordReg, String inputFullName, String radio , String inputEmail) {
         
         String hash = hashPassword(inputPasswordReg);        
-        Connection conn = null;
+        Connection db = null;
 
         try {
             try {
@@ -109,10 +115,13 @@ public class RegisterDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+            
+            db = beans.Database.getDatabaseConnection();
+            
             String query = "INSERT into users (userID, password, name, tutorSubjects, email) VALUES(?,?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, inputUserReg);
             ps.setString(2, hash);
             ps.setString(3, inputFullName);
@@ -121,9 +130,9 @@ public class RegisterDao {
             ps.executeUpdate();
     } catch(SQLException sql) {
       } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

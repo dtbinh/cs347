@@ -19,14 +19,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 public class PasswordResetDao {
 
@@ -151,7 +143,7 @@ public class PasswordResetDao {
                     Calendar now = Calendar.getInstance();
                     now.setTime(df.parse(nowTime));
                     long diff = now.getTimeInMillis() - previous.getTimeInMillis();
-                    if (diff >= 1 * 60 * 1000) {
+                    if (diff >= 1 * 60 * 15000) {
                         conn = DriverManager.getConnection(
                                 "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
                         String del_query = "UPDATE users SET token=?, tokenCreate=? WHERE token=?";

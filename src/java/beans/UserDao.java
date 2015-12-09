@@ -17,7 +17,7 @@ public class UserDao {
         
         String hash = hashPassword(password);
         boolean status = false;
-        Connection conn = null;
+        Connection db = null;
 //        HttpSession session = ServletActionContext.getRequest().getSession(false);
 //        session.setMaxInactiveInterval(20*60);
         try {
@@ -26,10 +26,13 @@ public class UserDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+            
+            db = beans.Database.getDatabaseConnection();
+
             String query = "select userID, password from users where userID=? and password=?";
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, userID);
             ps.setString(2, hash);
             ResultSet rs = ps.executeQuery();
@@ -43,9 +46,9 @@ public class UserDao {
             }
         } catch (SQLException e) {
         } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
