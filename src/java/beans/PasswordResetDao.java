@@ -39,7 +39,7 @@ public class PasswordResetDao {
 
 //        String hash = hashPassword(password);
         boolean status = false;
-        Connection conn = null;
+        Connection db = null;
 //        HttpSession session = ServletActionContext.getRequest().getSession(false);
 //        session.setMaxInactiveInterval(20*60);
         try {
@@ -48,10 +48,13 @@ public class PasswordResetDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+//            conn = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
+            
+            db = beans.Database.getDatabaseConnection();
+
             String query = "select email,name from users where email=?";
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, inputEmail);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -66,9 +69,9 @@ public class PasswordResetDao {
             }
         } catch (SQLException e) {
         } finally {
-            if (conn != null) {
+            if (db != null) {
                 try {
-                    conn.close();
+                    db.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
