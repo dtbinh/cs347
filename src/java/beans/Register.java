@@ -11,7 +11,7 @@ public class Register extends ActionSupport {
     RegisterDao rdao = new RegisterDao();
     
     @Override
-    public String execute() {
+    public String execute() throws ClassNotFoundException { // This was added...
         if(rdao.checkUser(inputUserReg)) {
             addActionError("This username has already been taken. Please choose another.");
             return INPUT;

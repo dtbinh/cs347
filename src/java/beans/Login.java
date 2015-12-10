@@ -33,7 +33,7 @@ public class Login extends ActionSupport implements SessionAware{
     }
 
     @Override
-    public String execute() throws IOException {
+    public String execute() throws IOException, ClassNotFoundException {
         UserDao ud = new UserDao(); 
         setInputUser(inputUser);
         setInputPassword(inputPassword);

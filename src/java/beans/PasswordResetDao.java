@@ -33,7 +33,7 @@ public class PasswordResetDao {
         this.personName = personName;
     }
 
-    public boolean checkEmail(String inputEmail) {
+    public boolean checkEmail(String inputEmail) throws ClassNotFoundException {
 
         System.out.println("Checking email information...");
 
@@ -80,7 +80,7 @@ public class PasswordResetDao {
         return status;
     }
 
-    public void setToken(String email, String token, String time) {
+    public void setToken(String email, String token, String time) throws ClassNotFoundException {
 
         System.out.println("Adding token field to table...");
         String hash = hashPassword(token);
@@ -99,7 +99,7 @@ public class PasswordResetDao {
             
             db = beans.Database.getDatabaseConnection();
 
-            String query = "UPDATE users SET token=?, tokenCreate=? WHERE email=?";
+            String query = "UPDATE tutors.users SET token=?, tokenCreate=? WHERE email=?";
 
             PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, token);
@@ -121,7 +121,7 @@ public class PasswordResetDao {
     } 
     
     public boolean checkToken(String token, String nowTime, String pass)
-            throws ParseException, MalformedURLException, UnsupportedEncodingException {
+            throws ParseException, MalformedURLException, UnsupportedEncodingException, ClassNotFoundException {
 
         System.out.println("Checking token information...");
         boolean status = false;
@@ -206,7 +206,7 @@ public class PasswordResetDao {
         return digest;
     }
     
-    private void resetToken(String token) throws MalformedURLException, UnsupportedEncodingException {
+    private void resetToken(String token) throws MalformedURLException, UnsupportedEncodingException, ClassNotFoundException {
         System.out.println("Resetting Token...");
         boolean status = false;
         Connection db = null;

@@ -20,7 +20,7 @@ import java.sql.SQLException;
  */
 public class RegisterDao {
     
-        public boolean checkUser(String userID) {
+        public boolean checkUser(String userID) throws ClassNotFoundException { // ClassNotFoundException was added...
         
         System.out.println("Checking register information...");
                 
@@ -62,7 +62,7 @@ public class RegisterDao {
         return status;
     }
     
-        public boolean checkEmail(String email) {
+        public boolean checkEmail(String email) throws ClassNotFoundException {
         
         System.out.println("Checking email information...");
                 
@@ -104,8 +104,8 @@ public class RegisterDao {
         return status;
     }
         
-        public void insertData(String inputUserReg, String inputPasswordReg, String inputFullName, String radio , String inputEmail) {
-        
+        public void insertData(String inputUserReg, String inputPasswordReg, String inputFullName, String radio , String inputEmail) throws ClassNotFoundException {
+        System.out.println("Inserting data from registration...");
         String hash = hashPassword(inputPasswordReg);        
         Connection db = null;
 
@@ -120,7 +120,7 @@ public class RegisterDao {
             
             db = beans.Database.getDatabaseConnection();
             
-            String query = "INSERT into users (userID, password, name, tutorSubjects, email) VALUES(?,?,?,?,?)";
+            String query = "INSERT into tutors.users (userID, password, name, tutorSubjects, email) VALUES(?,?,?,?,?)";
             PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, inputUserReg);
             ps.setString(2, hash);
@@ -140,6 +140,7 @@ public class RegisterDao {
         }  
    }      
        private static String hashPassword(String password) {
+       System.out.println("Hashing password...");
        String digest;
        try {
            MessageDigest md = MessageDigest.getInstance("md5");

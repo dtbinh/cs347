@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    public boolean checkLogin(String userID, String password){
+    public boolean checkLogin(String userID, String password) throws ClassNotFoundException{
         
         System.out.println("Checking login information...");
         

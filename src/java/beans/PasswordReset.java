@@ -56,7 +56,7 @@ public class PasswordReset extends ActionSupport {
     }
 
     @Override
-    public String execute() throws IOException, SQLException {
+    public String execute() throws IOException, SQLException, ClassNotFoundException {
 
         setInputEmail(inputEmail);
 
@@ -68,8 +68,12 @@ public class PasswordReset extends ActionSupport {
             String timeNow = dateFormat.format(nowTim.getTime());
             System.out.println("The date/time that the token was generated: " + timeNow);
 
+            HttpServletRequest request = ServletActionContext.getRequest();
+            
+            
+            
             System.out.println("The token generated is: " + token);
-            URL myURL = new URL("http://localhost:8080/TutorsJMU/change_password.jsp?token=" + token);
+            URL myURL = new URL("http://"+ request.getServerName()+":" + request.getServerPort() + request.getContextPath() + "/change_password.jsp?token=" + token); //http://localhost:8080/TutorsJMU/change_password.jsp?token=" + token
             prd.setToken(inputEmail, token, timeNow);
             try {
                 sendEmail(myURL, prd.getPersonName(), inputEmail);
@@ -135,7 +139,7 @@ public class PasswordReset extends ActionSupport {
     }
 
 
-    public String getToken() throws ParseException, UnsupportedEncodingException, MalformedURLException {
+    public String getToken() throws ParseException, UnsupportedEncodingException, MalformedURLException, ClassNotFoundException {
         UserDao udao = new UserDao();
         if (!password.equals(passwordConf)) {
             addActionError("The passwords do not match.");
