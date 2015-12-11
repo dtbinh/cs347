@@ -1,3 +1,5 @@
+<%@page import="beans.Posting"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
@@ -35,6 +37,7 @@
     </head>
     <body>
         <%@include file="header/login_header.jsp" %>
+        <jsp:useBean id="postDao" class="beans.PostingDao"/>
         <s:if test="hasActionMessages()">
             <div class="alert alert-success message" id="alert_message_success">
                  <s:actionmessage/>
@@ -46,6 +49,38 @@
                 <%=session.getAttribute("username")%>!</span></h1> 
                 <br>
                 <p class="text-center">Below will contain all of the posts available. The user should be able to only edit/delete their own posts, and be able to click on a persons post.</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                          <th>Post ID</th>
+                          <th>Name</th>
+                          <th>Type</th>
+                          <th>Date of Post</th>
+                          <th>Meeting Time</th>
+                          <th>Subjects</th>
+                          <th>Message</th>
+                          <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                <%
+                    ArrayList<Posting> postings = postDao.getPostings(); 
+                    
+                    for (Posting p : postings)
+                    { %>       
+                        <tr>
+                          <td><%= p.postID%></td>
+                          <td><%= p.name%></td>
+                          <td><%= p.type%></td>
+                          <td><%= p.timeCreated%></td>
+                          <td><%= p.timeRequested%></td>
+                          <td><%= p.subjects%></td>
+                          <td><%= p.msg%></td>
+                          <td><%= p.status%></td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
                 <%@include file="footer/footer.jsp" %> 
     </body>
 </html>
