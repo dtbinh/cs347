@@ -20,7 +20,7 @@ import java.util.Locale;
  */
 public class NewPostingDao 
 {
-    public void submitPost(int postID, String name, String type, String subject, String message) throws ClassNotFoundException 
+    public void submitPost(String name, String type, String subject, String message) throws ClassNotFoundException 
     {
         System.out.println("Submitting New Post...");
         
@@ -32,28 +32,17 @@ public class NewPostingDao
                 e.printStackTrace();
             }
             db = beans.Database.getDatabaseConnection();
-            String query = "insert into tutors.postings (postingID, name, "
-                    + "type, timeCreated, timeRequested, msg, status) values (?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "insert into tutors.postings (name, "
+                    + "type, timeCreated, timeRequested, subjects, msg, status) values (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = db.prepareStatement(query);
-            System.out.println("Here");
-            ps.setInt(1, postID);
-            System.out.println("There");
-            ps.setString(2, name);
-            System.out.println("Everywhere");
-            ps.setString(3, type);
-            System.out.println("Wild");
-            ps.setString(4, "" + System.currentTimeMillis());
-            System.out.println("Things");
-            ps.setString(5, "today? I guess");
-            System.out.println("Test");
-            ps.setString(6, subject);
-            System.out.println("TTPI");
-            ps.setString(7, message);
-            System.out.println("Conner");
-            ps.setInt(8, 1);
-            System.out.println("hi");
+            ps.setString(1, name);
+            ps.setString(2, type);
+            ps.setString(3, "" + System.currentTimeMillis());
+            ps.setString(4, "today? I guess");
+            ps.setString(5, subject);
+            ps.setString(6, message);
+            ps.setInt(7, 1);
             ps.executeUpdate();
-            System.out.println("There");
             
         } catch (SQLException e) {
         } finally {
