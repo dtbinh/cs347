@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label for="inputUserReg" class="col-sm-2 control-label">Username:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputUserReg" name="inputUserReg" >
+                        <input type="text" class="form-control" id="inputUserReg" name="inputUserReg" value="<%= userID %>" >
                     </div>
                 </div>
                 <div class="form-group">

@@ -119,6 +119,38 @@ public class RegisterDao {
         }
     }
 
+        public void updateData(String inputUserReg, String inputFullName, String radio, String inputEmail, String classes) throws ClassNotFoundException {
+        System.out.println("Inserting data from registration...");
+        Connection db = null;
+        System.out.println("The userID" + inputUserReg);
+        try {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            db = beans.Database.getDatabaseConnection();
+            String query = "UPDATE tutors.users SET name=?, accountType=?, email=?, tutorSubjects=?, WHERE userID=?";
+            PreparedStatement ps = db.prepareStatement(query);
+            ps.setString(1, inputFullName);
+            ps.setString(2, radio);
+            ps.setString(3, inputEmail);
+            ps.setString(4, classes);
+            ps.setString(5, inputUserReg);
+            ps.executeUpdate();
+        } catch (SQLException sql) {
+        } finally {
+            if (db != null) {
+                try {
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    
     private static String hashPassword(String password) {
         System.out.println("Hashing password...");
         String digest;
@@ -132,5 +164,9 @@ public class RegisterDao {
             digest = null;
         }
         return digest;
+    }
+
+    void insertData(String inputUserReg, String inputFullName, String radio, String inputEmail, String classes) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

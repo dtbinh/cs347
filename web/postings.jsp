@@ -46,7 +46,7 @@
         <button type="button" class="btn btn-success col-md-offset-11" name="newposting" onclick="window.location.href='newposting.jsp'">Create Post</button>
         <h1 class="text-center">Welcome Back, 
             <span id="welcome" style="text-transform: capitalize !important;">
-                <%=session.getAttribute("username")%>!</span></h1> 
+                <%= session.getAttribute("username") %>!</span></h1> 
                 <br>
                 <p class="text-center">Below will contain all of the posts available. The user should be able to only edit/delete their own posts, and be able to click on a persons post.</p>
                 <table class="table table-hover">

@@ -65,6 +65,11 @@
             <result name="success">postings.jsp</result>
             <result name="input">messages.jsp</result>
         </action>
+        
+        <action name="update_profile" class="beans.SelectUserAction" method="execute">
+            <result name="success">postings.jsp</result>
+            <result name="input">profile.jsp</result>
+        </action>
                                       
     </package>
 </struts>

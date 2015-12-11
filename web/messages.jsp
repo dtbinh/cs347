@@ -32,6 +32,8 @@
                 $(this).remove(); 
             });
         }, 3000);
+        }
+        }
         </script>
         <title>Tutors@JMU - Postings</title>
     </head>
@@ -44,7 +46,7 @@
         </s:if>
         <h1 class="text-center">Welcome Back, 
             <span id="welcome" style="text-transform: capitalize !important;">
-                <%=session.getAttribute("username")%>!</span></h1> 
+                <%= session.getAttribute("username") %>!</span></h1> 
                 <br>
                 
                 <form class="form-horizontal col-md-offset-1" action="send_message" method="post">
@@ -66,7 +68,7 @@
                     <div class="form-group">
                         <label for="body" class="col-sm-2 control-label">Message Body:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="message-body" name="messageBody" placeholder="Say something" >
+                            <input type="text" class="form-control" id="message-body" name="messageBody" style="min-height: 10em">
                             <%--<s:property value="fieldErrors['user']"></s:property>--%>
                         </div>
                     </div>
@@ -79,8 +81,40 @@
                     </div>
             </div>
         </form>        
+                        <div class="container">
+                            <h3>Inbox</h3>
+                                        <table class="table table-hover">
+                    <thead>
+                        <tr class="row">
+                          <th class="col-md-1">From</th>
+                          <th class="col-md-2">Subject</th>
+                          <th class="col-md-7">Body</th>
+                          <th class="col-md-1">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            String usr = request.getSession().getAttribute("username").toString();
+                            UserDao ud1 = new UserDao();
+                            ArrayList<ArrayList<String>> messages1 = ud1.getMessages(usr);
+
+                            for (ArrayList<String> message : messages1)
+                            {
+                        %>
+                        <tr class="row">
+                            <td class="col-md-1"><%= message.get(0) %></td>
+                            <td class="col-md-2"><%= message.get(2) %></td>
+                            <td class="col-md-7"><%= message.get(3) %></td>
+                            <td class="col-md-1"><button id="<%= message.get(4) %>" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        </tr>
+                        <%
+                            }
+                        %>      
+                    </tbody>
+            </table>
+                        </div>
         <div class="container">
-            <h3>Sent Mail</h3>
+            <h3>Sent Messages</h3>
             <table class="table table-hover">
                     <thead>
                         <tr class="row">
@@ -92,9 +126,9 @@
                     </thead>
                     <tbody>
                         <%
-                            String user = request.getSession().getAttribute("username").toString();
+                            String user = session.getAttribute("username").toString();
                             UserDao ud = new UserDao();
-                            ArrayList<ArrayList<String>> messages = ud.getMessages(user);
+                            ArrayList<ArrayList<String>> messages = ud.getMessages(usr);
 
                             for (ArrayList<String> message : messages)
                             {
@@ -103,11 +137,13 @@
                             <td class="col-md-1"><%= message.get(1) %></td>
                             <td class="col-md-2"><%= message.get(2) %></td>
                             <td class="col-md-7"><%= message.get(3) %></td>
-                            <td class="col-md-1"><button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></td>
+                            <td class="col-md-1"><button id="<%= message.get(4) %>" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
                         <%
                             }
-                        %>       
+                        %>      
+                    </tbody>
+            </table>
                 
         <%@include file="footer/footer.jsp" %> 
     </body>

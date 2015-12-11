@@ -1,4 +1,7 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="beans.UserDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+      
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,13 +22,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="postings.jsp">Tutors@JMULogo</a>
+                    <a class="navbar-brand" href="postings.jsp">tutors@JMU</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><p style="bottom:-11pt; position: relative; color: #684B86 !important"><span style="text-transform: capitalize !important; color: #684B86 !important"><%=session.getAttribute("username")%></span> is signed in.</p></li>
+                        <li><p style="bottom:-11pt; position: relative; color: #684B86 !important"><span style="text-transform: capitalize !important; color: #684B86 !important"><%= session.getAttribute("username") %></span> is signed in.</p></li>
                         <li><a href="postings.jsp" >Postings </a></li>
                         <li><a href="messages.jsp" >Messages </a></li>
                         <li><a href="#" >Calendar </a></li>

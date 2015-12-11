@@ -24,6 +24,7 @@ public class Register extends ActionSupport {
         inputFullName = capitalizeFully(inputFirstName.trim()) + " " + capitalizeFully(inputLastName.trim());
 
         rdao.insertData(inputUserReg, inputPasswordReg, inputFullName, radio, inputEmail, classes);
+        
         addActionMessage("Congratulations! You have successfully registered! Please login with your username and password.");
         return SUCCESS;
     }

@@ -72,6 +72,7 @@ public class UserDao {
                 message.add(rs.getString("to_id"));
                 message.add(rs.getString("message_title"));
                 message.add(rs.getString("message_body"));
+                message.add(rs.getString("id"));
                 
                 messages.add(message);
             }
@@ -139,6 +140,46 @@ public class UserDao {
             }
         }
         return status;
+        }
+        
+        public ArrayList<String> getUser(String inputUser) throws ClassNotFoundException {
+        System.out.println("Checking user information...");
+        System.out.println("Input User: " + inputUser);
+        boolean status = false;
+        Connection db = null;
+        String email, first_name, last_name;
+        ArrayList<String> user_info = new ArrayList<String>();
+       
+        try {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            db = beans.Database.getDatabaseConnection();
+            String query = "select * from tutors.users where userID=?";
+            PreparedStatement ps = db.prepareStatement(query);
+            ps.setString(1, inputUser);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user_info.add(rs.getString("userID"));
+                user_info.add(rs.getString("name"));
+                user_info.add(rs.getString("userID"));
+                user_info.add(rs.getString("accountType"));
+                user_info.add(rs.getString("email"));
+                user_info.add(rs.getString("tutorSubjects"));
+            }
+        } catch (SQLException e) {
+        } finally {
+            if (db != null) {
+                try {
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return user_info;
         }
         
     public void insertData(String fromUser, String inputUser, String messageTitle, String messageBody) throws ClassNotFoundException {

@@ -15,6 +15,7 @@
             <h1 class="text-center">Wow, this is embarrassing.</h1>
             <p class="text-center">We apologize for the inconvenience. Please try again.</p>
             <p class="text-center">If you feel as if there is a problem on our end, do not hesitate to contact us <span><a href="contact">here</a></span>.</p>
+            <img src="images/tbservers.png" class="img-responsive" alt="Responsive image" style="max-width: 50%"/>
         </div>
         <jsp:include page="/footer/footer.jsp" />
     </body>
