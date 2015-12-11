@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><p style="bottom:-11pt; position: relative; color: #684B86 !important"><span style="text-transform: capitalize !important; color: #684B86 !important"><%=session.getAttribute("username")%></span> is signed in.</p></li>
                         <li><a href="postings.jsp" >Postings </a></li>
-                        <li><a href="#" >Messages </a></li>
+                        <li><a href="messages.jsp" >Messages </a></li>
                         <li><a href="#" >Calendar </a></li>
                         <li><a href="profile.jsp" >My Account </a></li>
                         <li><a href="logout">Logout</a></li>
