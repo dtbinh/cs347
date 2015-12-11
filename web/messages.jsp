@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="beans.UserDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -78,13 +79,35 @@
                     </div>
             </div>
         </form>        
-                        
-                            <%
-                                String user = request.getSession().getAttribute("username").toString();
-                                UserDao ud = new UserDao();
-                                
-                                
-                            %>
+        <div class="container">
+            <h3>Sent Mail</h3>
+            <table class="table table-hover">
+                    <thead>
+                        <tr class="row">
+                          <th class="col-md-1">To</th>
+                          <th class="col-md-2">Subject</th>
+                          <th class="col-md-7">Body</th>
+                          <th class="col-md-1">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            String user = request.getSession().getAttribute("username").toString();
+                            UserDao ud = new UserDao();
+                            ArrayList<ArrayList<String>> messages = ud.getMessages(user);
+
+                            for (ArrayList<String> message : messages)
+                            {
+                        %>
+                        <tr class="row">
+                            <td class="col-md-1"><%= message.get(1) %></td>
+                            <td class="col-md-2"><%= message.get(2) %></td>
+                            <td class="col-md-7"><%= message.get(3) %></td>
+                            <td class="col-md-1"><button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        </tr>
+                        <%
+                            }
+                        %>       
                 
         <%@include file="footer/footer.jsp" %> 
     </body>

@@ -50,9 +50,9 @@ public class UserDao {
         return status;
     }
     
-    public boolean getMessages(String userID) throws ClassNotFoundException {
+    public ArrayList<ArrayList<String>> getMessages(String userID) throws ClassNotFoundException {
         System.out.println("Gathering messages...");
-        boolean status = false;
+        //boolean status = false;
         Connection db = null;
         ArrayList<ArrayList<String>> messages = new ArrayList<>();
         
@@ -72,6 +72,8 @@ public class UserDao {
                 message.add(rs.getString("to_id"));
                 message.add(rs.getString("message_title"));
                 message.add(rs.getString("message_body"));
+                
+                messages.add(message);
             }
         } catch (SQLException e) {
         } finally {
@@ -83,7 +85,7 @@ public class UserDao {
                 }
             }
         }
-        return status;
+        return messages;
     }
 
     
