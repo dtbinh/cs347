@@ -33,7 +33,7 @@
         <p class="text-center"><span>Would you like to change your password? Please click the link to <a href="pass_reset"> Reset Now.</a></span></p>
         <br>
         
-        <button class="col-md-offset-5" type="button" class="btn btn-default" onClick="history.go(-1);
+        <button class="col-md-offset-5 btn btn-default" type="button" onClick="history.go(-1);
                 return true;">Go Back</button>
                 <%@include file="footer/footer.jsp" %> 
     </body>

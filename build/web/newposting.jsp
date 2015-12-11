@@ -23,29 +23,30 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="stylesheets/tutorstyle.css">
         <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
-        <script type="text/javascript">        
-        window.setTimeout(function() {
-            $("#alert_message_success").fadeTo(500, 0).slideUp(500, function(){
-                $(this).remove(); 
-            });
-        }, 3000);
-        </script>
-        <title>Tutors@JMU - Postings</title>
+        <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>-->
+        <title>New Posting - Tutors@JMU</title>
     </head>
     <body>
         <%@include file="header/login_header.jsp" %>
-        <s:if test="hasActionMessages()">
-            <div class="alert alert-success message" id="alert_message_success">
-                 <s:actionmessage/>
+        <div class="jumbotron">
+            <div class="container">
+                <form class="form-horizontal col-md-offset-1" action="newpost" method="post">
+                <div class="form-group">
+                    <label for="subject" class="col-sm-2 control-label">Subject:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                </div>
+                    <button class="col-md-offset-5 btn btn-info" type="button" onClick="history.go(-1);
+                        return true;">Go Back</button>
+                   <button type="submit" class="btn btn-success">Submit Post</button>
+                </form>
             </div>
-                </s:if>
-        <button type="button" class="btn btn-success col-md-offset-11" name="newposting" onclick="window.location.href='newposting.jsp'">Create Post</button>
-        <h1 class="text-center">Welcome Back, 
-            <span id="welcome" style="text-transform: capitalize !important;">
-                <%=session.getAttribute("username")%>!</span></h1> 
-                <br>
-                <p class="text-center">Below will contain all of the posts available. The user should be able to only edit/delete their own posts, and be able to click on a persons post.</p>
-                <%@include file="footer/footer.jsp" %> 
+        </div>
+        <%@include file="footer/footer.jsp" %> 
     </body>
 </html>

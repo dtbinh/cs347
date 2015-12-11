@@ -56,6 +56,10 @@
             <result name="fail">error_password.jsp</result>
             <result name="input">change_password.jsp</result>
         </action>
-                 
+        
+        <action name="newpost" class="beans.NewPosting" method="execute">
+            <result name="success">postings.jsp</result>
+        </action> 
+                                      
     </package>
 </struts>

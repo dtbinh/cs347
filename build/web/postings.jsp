@@ -34,12 +34,13 @@
         <title>Tutors@JMU - Postings</title>
     </head>
     <body>
-        <%@include file="header/login_header.jsp" %> 
+        <%@include file="header/login_header.jsp" %>
         <s:if test="hasActionMessages()">
             <div class="alert alert-success message" id="alert_message_success">
                  <s:actionmessage/>
             </div>
                 </s:if>
+        <button type="button" class="btn btn-success col-md-offset-11" name="newposting" onclick="window.location.href='newposting.jsp'">Create Post</button>
         <h1 class="text-center">Welcome Back, 
             <span id="welcome" style="text-transform: capitalize !important;">
                 <%=session.getAttribute("username")%>!</span></h1> 

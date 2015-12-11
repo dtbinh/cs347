@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <%
     System.out.println("Outside of index.jsp... value of inputUser: " + request.getParameter("inputUser"));
-    if (session.getAttribute("loggedIn") != null && session.getAttribute("loggedIn").equals("true")) //.equals("true");
+    if (session.getAttribute("loggedIn") != null && session.getAttribute("loggedIn").equals("true"))
     {
         System.out.print("Inside index.jsp... value of inputUser: " + request.getParameter("inputUser"));
         response.sendRedirect("postings.jsp");
@@ -29,9 +29,6 @@
                     <img src="images/homeimage.jpg" class="img-responsive">
                 </div>
             </div>
-<!--            <h2>This site is under construction.</h2>
-            <br><br>
-            <p>Please come back soon!</p>-->
         </div>
         <%@include file="footer/footer.jsp" %> 
     </body>
