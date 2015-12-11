@@ -49,7 +49,44 @@ public class UserDao {
         }
         return status;
     }
+    
+    public boolean getMessages(String userID) throws ClassNotFoundException {
+        System.out.println("Gathering messages...");
+        boolean status = false;
+        Connection db = null;
+        ArrayList<ArrayList<String>> messages = new ArrayList<>();
+        
+        try {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            db = beans.Database.getDatabaseConnection();
+            String query = "select * from tutors.messages";
+            PreparedStatement ps = db.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ArrayList<String> message = new ArrayList<String>();
+                message.add(rs.getString("from_id"));
+                message.add(rs.getString("to_id"));
+                message.add(rs.getString("message_title"));
+                message.add(rs.getString("message_body"));
+            }
+        } catch (SQLException e) {
+        } finally {
+            if (db != null) {
+                try {
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return status;
+    }
 
+    
     private static String hashPassword(String password) {
         String digest;
         try {

@@ -1,3 +1,4 @@
+<%@page import="beans.UserDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
@@ -77,7 +78,14 @@
                     </div>
             </div>
         </form>        
+                        
+                            <%
+                                String user = request.getSession().getAttribute("username").toString();
+                                UserDao ud = new UserDao();
+                                
+                                
+                            %>
                 
-                <%@include file="footer/footer.jsp" %> 
+        <%@include file="footer/footer.jsp" %> 
     </body>
 </html>
