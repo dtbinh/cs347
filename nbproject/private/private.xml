@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/src/java/beans/RegisterDao.java</file>
             <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/src/java/beans/UserDao.java</file>
+            <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/web/register.jsp</file>
+            <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/src/java/struts.xml</file>
             <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/src/java/beans/PasswordReset.java</file>
+            <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/web/pass_reset.jsp</file>
             <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/src/java/beans/Login.java</file>
             <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/web/index.jsp</file>
             <file>file:/C:/Users/jhd29_000/Documents/Tutors@JMU/src/java/beans/PasswordResetDao.java</file>

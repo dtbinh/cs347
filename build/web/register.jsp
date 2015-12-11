@@ -18,7 +18,6 @@
     </head>
     <body>
         <jsp:include page="header/header.jsp" />
-        <%--<%@include file="header/header.jsp" %>--%> 
         <s:if test="hasActionErrors()">
             <div class="alert alert-danger" id="alert_message">
                 <s:actionerror/>
@@ -64,10 +63,22 @@
                         <input type="password" class="form-control" id="inputPasswordConf" name="inputPasswordConf">
                     </div>
                 </div>
+                <div class="form-group">
+                    <p class="tutoring_classes_heading">Please select classes for tutoring. (This is Optional.)</p>
+                    <input type="checkbox" name="classes" value="Business">Business
+                    <input type="checkbox" name="classes" value="Chemistry">Chemistry
+                    <input type="checkbox" name="classes" value="Computer Science">Computer Science
+                    <input type="checkbox" name="classes" value="English">English
+                    <input type="checkbox" name="classes" value="Health Science">Health Science<br>
+                    <input type="checkbox" name="classes" value="Math">Math
+                    <input type="checkbox" name="classes" value="Nursing">Nursing
+                    <input type="checkbox" name="classes" value="Philosophy">Philosophy
+                    <input type="checkbox" name="classes" value="Psychology">Psychology
+                    <input type="checkbox" name="classes" value="Science">Science
+                </div>
                 <br>
                 <div class="col-md-offset-1">
                     <fieldset>
-                        <br>
                         <legend>Account Type</legend>
                         <label for="student">
                             <input type="radio"
@@ -88,7 +99,7 @@
                     </div>
                 </div>
             </form>
-            </div>
-            <%@include file="footer/footer.jsp" %> 
+        </div>
+        <%@include file="footer/footer.jsp" %> 
     </body>
 </html>

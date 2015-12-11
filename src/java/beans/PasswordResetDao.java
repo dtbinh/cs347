@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
 import java.io.UnsupportedEncodingException;
@@ -11,7 +6,6 @@ import java.net.MalformedURLException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,33 +28,24 @@ public class PasswordResetDao {
     }
 
     public boolean checkEmail(String inputEmail) throws ClassNotFoundException {
-
         System.out.println("Checking email information...");
-
-//        String hash = hashPassword(password);
         boolean status = false;
         Connection db = null;
-//        HttpSession session = ServletActionContext.getRequest().getSession(false);
-//        session.setMaxInactiveInterval(20*60);
         try {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-//            conn = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
-            
             db = beans.Database.getDatabaseConnection();
-
             String query = "select email,name from users where email=?";
             PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, inputEmail);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getString("email").equals(inputEmail)) {
-                    personName = rs.getString("name"); 
-                    email=inputEmail;  
+                    personName = rs.getString("name");
+                    email = inputEmail;
                     System.out.println("The persons name from prdao is: " + personName);// I CHANGED THIS!!!
                     status = true; //Email is found.
                 } else {
@@ -86,27 +71,19 @@ public class PasswordResetDao {
         String hash = hashPassword(token);
         boolean status = false;
         Connection db = null;
-//        HttpSession session = ServletActionContext.getRequest().getSession(false);
-//        session.setMaxInactiveInterval(20*60);
         try {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-//            conn = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
-            
             db = beans.Database.getDatabaseConnection();
-
             String query = "UPDATE tutors.users SET token=?, tokenCreate=? WHERE email=?";
-
             PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, token);
             ps.setString(2, time);
             ps.setString(3, email);
             ps.executeUpdate();
-
         } catch (SQLException e) {
         } finally {
             if (db != null) {
@@ -117,27 +94,20 @@ public class PasswordResetDao {
                 }
             }
         }
+    }
 
-    } 
-    
     public boolean checkToken(String token, String nowTime, String pass)
             throws ParseException, MalformedURLException, UnsupportedEncodingException, ClassNotFoundException {
-
         System.out.println("Checking token information...");
         boolean status = false;
         Connection db = null;
-
         try {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-//            conn = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
-            
             db = beans.Database.getDatabaseConnection();
-
             String query = "select token, tokenCreate from users where token=?";
             PreparedStatement ps = db.prepareStatement(query);
             ps.setString(1, token);
@@ -153,11 +123,7 @@ public class PasswordResetDao {
                     now.setTime(df.parse(nowTime));
                     long diff = now.getTimeInMillis() - previous.getTimeInMillis();
                     if (diff >= 1 * 60 * 15000) {
-//                        conn = DriverManager.getConnection(
-//                                "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
-                        
                         db = beans.Database.getDatabaseConnection();
-
                         String del_query = "UPDATE users SET token=?, tokenCreate=? WHERE token=?";
                         PreparedStatement nps = db.prepareStatement(del_query);
                         nps.setString(1, null);
@@ -205,7 +171,7 @@ public class PasswordResetDao {
         }
         return digest;
     }
-    
+
     private void resetToken(String token) throws MalformedURLException, UnsupportedEncodingException, ClassNotFoundException {
         System.out.println("Resetting Token...");
         boolean status = false;
@@ -216,20 +182,13 @@ public class PasswordResetDao {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-//            conn = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/tutorarchive", "root", "pass");
-                        
             db = beans.Database.getDatabaseConnection();
-            
             String delQuery = "UPDATE users SET token=?, tokenCreate=? WHERE token=?";
-            
             PreparedStatement ps = db.prepareStatement(delQuery);
             ps.setString(1, null);
             ps.setString(2, null);
             ps.setString(3, token);
             ps.executeUpdate();
-//            sendEmailSuccess(personName,email);
-
         } catch (SQLException e) {
         } finally {
             if (db != null) {
@@ -240,56 +199,5 @@ public class PasswordResetDao {
                 }
             }
         }
-        
-
     }
-    
-        
-//        public void sendEmailSuccess(String personName, String inputEmail) throws MalformedURLException, UnsupportedEncodingException {
-//        final String username = "tutors.jmu@gmail.com";
-//        final String password = "tutors@jmu";
-////        URL myURL = new URL("http://localhost:8080/TutorsJMU/contact");
-//        Properties props = new Properties();
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.smtp.host", "smtp.gmail.com");
-//        props.put("mail.smtp.port", "587");
-//        
-//        System.out.println("The persons name is :" + personName);
-//        System.out.println("The email is :" + inputEmail);
-//        Session session1 = Session.getInstance(props,
-//                new javax.mail.Authenticator() {
-//                    protected PasswordAuthentication getPasswordAuthentication() {
-//                        return new PasswordAuthentication(username, password);
-//                    }
-//                });
-//        try {
-//            Message message = new MimeMessage(session1);
-//            message.setFrom(new InternetAddress("tutors.jmu@gmail.com"));
-//            message.setRecipients(Message.RecipientType.TO,
-//                    InternetAddress.parse(inputEmail));
-//            message.setSubject("Tutors@JMU Password Reset");
-//            message.setText("Dear " + personName + ","
-//                    + "\n\nYour password has been successfully updated."
-//                    + "\n\n-------------------------------------------------------------------------------- "
-//                    + "\n\nIf you did not request to reset your password or believe you're receiving this email in error,"
-//                    + " please contact for assistance."
-//                    + "\n\nThank you for choosing us,"
-//                    + "\nThe Tutors@JMU Team"
-//                    + "\n\nNotice: The information and attachment(s) contained in this communication are intended for the addressee only,"
-//                    + " and may be confidential and/or legally privileged. "
-//                    + "If you have received this communication in error, "
-//                    + "please contact the sender immediately, and delete this communication from any computer or network system. "
-//                    + "Any interception, review, printing, copying, re-transmission, dissemination, "
-//                    + "or other use of, or taking of any action upon this information by persons or entities other than the "
-//                    + "intended recipient is strictly prohibited by law and may subject them to criminal or civil liability. "
-//                    + "Tutors@JMU shall not be liable for the improper and/or incomplete transmission of the "
-//                    + "information contained in this communication or for any delay in its receipt.");
-//
-//            Transport.send(message);
-//            System.out.println("Success Email Sent");
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

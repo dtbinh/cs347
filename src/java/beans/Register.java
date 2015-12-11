@@ -4,35 +4,31 @@ import com.opensymphony.xwork2.ActionSupport;
 import static org.apache.commons.lang3.text.WordUtils.capitalizeFully;
 
 public class Register extends ActionSupport {
-    
-    
-    String inputUserReg,inputEmail,inputFirstName,inputLastName,inputFullName,inputPasswordReg,inputPasswordConf,radio;
+
+    String inputUserReg, inputEmail, inputFirstName, inputLastName, inputFullName, inputPasswordReg, inputPasswordConf, radio, classes;
 
     RegisterDao rdao = new RegisterDao();
-    
+
     @Override
-    public String execute() throws ClassNotFoundException { // This was added...
-        if(rdao.checkUser(inputUserReg)) {
+    public String execute() throws ClassNotFoundException {
+        if (rdao.checkUser(inputUserReg)) {
             addActionError("This username has already been taken. Please choose another.");
             return INPUT;
         }
-        
-        if(rdao.checkEmail(inputEmail)) {
+
+        if (rdao.checkEmail(inputEmail)) {
             addActionError("This email has already been taken. Please choose another.");
             return INPUT;
         }
-        
-        inputFullName = capitalizeFully(inputFirstName.trim()) + " " + capitalizeFully(inputLastName.trim()); 
-        
-        rdao.insertData(inputUserReg, inputPasswordReg, inputFullName, radio ,inputEmail);
-        
-        addActionMessage("Congratulations! You have successfully registered! Please log with your username and password.");
-        return SUCCESS;
-        
 
+        inputFullName = capitalizeFully(inputFirstName.trim()) + " " + capitalizeFully(inputLastName.trim());
+
+        rdao.insertData(inputUserReg, inputPasswordReg, inputFullName, radio, inputEmail, classes);
+        addActionMessage("Congratulations! You have successfully registered! Please login with your username and password.");
+        return SUCCESS;
     }
-    
-        @Override
+
+    @Override
     public void validate() {
         if ("".equals(inputUserReg)) {
             addActionError("Username cannot be empty.");
@@ -46,20 +42,19 @@ public class Register extends ActionSupport {
         if ("".equals(inputLastName)) {
             addActionError("Last name cannot be empty");
         }
-        
+
         if ("".equals(inputPasswordReg)) {
             addActionError("Password cannot be empty.");
         }
         if ("".equals(inputPasswordConf)) {
             addActionError("Password confirmation cannot be empty.");
         }
-        if(!inputPasswordConf.equals(inputPasswordReg)) {
+        if (!inputPasswordConf.equals(inputPasswordReg)) {
             addActionError("Passwords do not match. Please try again.");
         }
 
     }
-    
-    
+
     public String getInputUserReg() {
         return inputUserReg;
     }
@@ -122,5 +117,13 @@ public class Register extends ActionSupport {
 
     public void setInputFullName(String inputFullName) {
         this.inputFullName = inputFullName;
-    }    
+    }
+
+    public String getClasses() {
+        return classes;
+    }
+
+    public void setClasses(String classes) {
+        this.classes = classes;
+    }
 }

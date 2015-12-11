@@ -67,12 +67,7 @@ public class PasswordReset extends ActionSupport {
             Calendar nowTim = Calendar.getInstance();
             String timeNow = dateFormat.format(nowTim.getTime());
             System.out.println("The date/time that the token was generated: " + timeNow);
-
             HttpServletRequest request = ServletActionContext.getRequest();
-            
-            
-            
-            System.out.println("The token generated is: " + token);
             URL myURL = new URL("http://"+ request.getServerName()+":" + request.getServerPort() + request.getContextPath() + "/change_password.jsp?token=" + token); //http://localhost:8080/TutorsJMU/change_password.jsp?token=" + token
             prd.setToken(inputEmail, token, timeNow);
             try {
@@ -158,7 +153,6 @@ public class PasswordReset extends ActionSupport {
             System.out.println("The token you have received from change_password.jsp is: " + token);
             if (prd.checkToken(token, timeNow, password)) {
                 addActionMessage("You have successfully changed your password!");
-//                sendEmailSuccess(prd.getPersonName(),inputEmail);
             } else {
                 addActionError("The time for your password reset has expired. Please resubmit your request.");
                 return "fail";

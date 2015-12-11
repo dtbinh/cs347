@@ -6,10 +6,6 @@
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
         
-        <!--<action name="register">  
-            <result>developer/dev_success.jsp</result>  
-        </action> -->
- 
         <action name="login" class="beans.Login">
             <result name="success">postings.jsp</result>
             <exception-mapping exception="java.lang.NullPointerException" result="error"/>
@@ -60,7 +56,6 @@
             <result name="fail">error_password.jsp</result>
             <result name="input">change_password.jsp</result>
         </action>
-        
-          
+                 
     </package>
 </struts>

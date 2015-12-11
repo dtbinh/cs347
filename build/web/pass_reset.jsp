@@ -15,6 +15,11 @@
             }, 3000);
         </script>
         <title>Password Reset</title>
+        <script>
+            function goBack() {
+                window.location.replace("profile.jsp");
+            }
+        </script>
     </head>
     <body>
         <%
@@ -54,11 +59,9 @@
                         <input type="email" class="form-control" id="inputEmail" name="inputEmail" >
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" class="btn btn-default" onClick="history.go(-1);
-                                return true;">Go Back</button>
+                        <button type="button" class="btn btn-default" onClick="goBack()">Go Back</button>
                         <button type="submit" class="btn btn-default">Send Email</button>
                     </div>
                 </div>
