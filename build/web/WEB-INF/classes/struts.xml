@@ -60,6 +60,11 @@
         <action name="newpost" class="beans.NewPosting" method="execute">
             <result name="success">postings.jsp</result>
         </action> 
+        
+        <action name="send_message" class="beans.SelectUserAction" method="execute">
+            <result name="success">postings.jsp</result>
+            <result name="input">messages.jsp</result>
+        </action>
                                       
     </package>
 </struts>
